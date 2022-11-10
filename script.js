@@ -99,3 +99,26 @@ setAlarmButton.addEventListener("click", function Alarm(e) {
 
   showAlarm();
 });
+
+var alarmcount = 0;
+function showAlarm() {
+  let alarmContainer = document.getElementById("alarm-list-container");
+  alarmContainer.innerHTML = "";
+
+  alarmcount++;
+  console.log("alarmcount after setAlarm Button", alarmcount);
+  alarmArray[0].innerHTML = "";
+  // console.log(alarmArray["0"]);
+  for (let alarm of alarmArray) {
+    let div = document.createElement("div");
+    div.setAttribute("id", `alarm${alarmcount}`);
+    div.innerHTML = `<span><img src="./Assets/icons8-alarmclock-16.png" height="20" width="20"></span><span>${alarm}</span>
+     <button  class="btn btn-outline-danger delete-btn" type="button" id="${alarmcount}"
+      onclick="removeAlarm(this.id)">Delete </button>`;
+
+    document.getElementById("alarm-list-container").appendChild(div);
+
+    console.log(alarmArray.length);
+    // return;
+  }
+}
