@@ -122,3 +122,16 @@ function showAlarm() {
     // return;
   }
 }
+
+function removeAlarm(alarmId) {
+  //
+  var currentDivToRemove = document.getElementById("alarm" + (alarmId + ""));
+  console.log(currentDivToRemove);
+  var deleteIndex = alarmArray.indexOf(currentDivToRemove);
+  alarmArray.splice(deleteIndex, 1);
+  currentDivToRemove.remove();
+  alarmcount--;
+  console.log("alarmcount after Delete Button", alarmcount);
+
+  console.table(typeof alarmArray[0]);
+}
