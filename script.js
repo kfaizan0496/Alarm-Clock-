@@ -41,10 +41,10 @@ setAlarmButton.addEventListener("click", function Alarm(e) {
     "inputSecondsCheck length is",
     inputSecondsCheck.toString().length
   );
-  //  convert values into Integer Format
-  var inputHrs = inputHrsCheck;
-  var inputMins = inputMinCheck;
-  var inputSeconds = inputSecondsCheck;
+  //  convert values into Integer Format for handling error when user (00:00:00)
+  var inputHrs = parseInt(inputHrsCheck);
+  var inputMins = parseInt(inputMinCheck);
+  var inputSeconds = parseInt(inputSecondsCheck);
 
   console.log("inputHrs value is", inputHrs);
   console.log("inputMins value is", inputMins);
@@ -137,10 +137,10 @@ function removeAlarm(alarmId) {
 }
 
 let audio = new Audio("./audio/alarm.mp3");
-let alert = setInterval(function () {
-  for (let i = 0; i < alarmArray.length; i++) {
-    if (alarmArray[i] == timeDisplay.innerText) {
-      alert("hey its time now");
-    }
-  }
-}, 500);
+// let alert = setInterval(function () {
+//   for (let i = 0; i < alarmArray.length; i++) {
+//     if (alarmArray[i] == timeDisplay.innerText) {
+//       alert("hey its time now");
+//     }
+//   }
+// }, 500);
