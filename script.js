@@ -135,3 +135,12 @@ function removeAlarm(alarmId) {
 
   console.table(typeof alarmArray[0]);
 }
+
+let audio = new Audio("./audio/alarm.mp3");
+let alert = setInterval(function () {
+  for (let i = 0; i < alarmArray.length; i++) {
+    if (alarmArray[i] == timeDisplay.innerText) {
+      alert("hey its time now");
+    }
+  }
+}, 500);
