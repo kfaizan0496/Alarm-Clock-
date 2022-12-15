@@ -26,13 +26,16 @@ var hours;
 var minutes;
 function currentTime() {
   var currentDate = new Date();
-  hours = appendZero(currentDate.getHours());
+  hours = currentDate.getHours();
+  hours = hours % 12 || 12;
+  hours = appendZero(hours);
+
+  // hours = appendZero(currentDate.getHours());
   minutes = appendZero(currentDate.getMinutes());
   var seconds = appendZero(currentDate.getSeconds());
   const am = "AM";
   const pm = "PM";
   timeZone = hours <= 12 ? am : pm;
-  hours = hours % 12 || 12;
 
   time = `${hours}:${minutes}:${seconds} ${timeZone}`;
 
