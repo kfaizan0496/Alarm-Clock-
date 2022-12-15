@@ -1,14 +1,33 @@
+var colors = [
+  "red",
+  "blue",
+  "yellow",
+  "lightgrey",
+  "darkorchid",
+  "black",
+  "orange",
+  "deeppink",
+  "green",
+  "purple",
+  "saddlebrown",
+  "lightseagreen",
+  "deepskyblue",
+  "firebrick",
+  "crimson",
+];
+
 var timeDisplay = document.getElementById("time-display");
 
 var setAlarmButton = document.getElementById("set-alarm");
 var stopButton = document.getElementById("stop-btn");
 var alarmArray = [];
 var time;
-
+var hours;
+var minutes;
 function currentTime() {
   var currentDate = new Date();
-  var hours = appendZero(currentDate.getHours());
-  var minutes = appendZero(currentDate.getMinutes());
+  hours = appendZero(currentDate.getHours());
+  minutes = appendZero(currentDate.getMinutes());
   var seconds = appendZero(currentDate.getSeconds());
   const am = "AM";
   const pm = "PM";
@@ -17,6 +36,11 @@ function currentTime() {
 
   time = `${hours}:${minutes}:${seconds} ${timeZone}`;
 
+  let tempTime = `${hours}:${minutes}:${seconds}:${timeZone}`;
+  if (alarmArray.indexOf(tempTime) !== -1) {
+    // alert("its time now ", tempTime);
+    ringAlarm();
+  }
   timeDisplay.innerText = time + "";
 }
 setInterval(currentTime, 1000);
@@ -58,8 +82,8 @@ setAlarmButton.addEventListener("click", function Alarm(e) {
   var alarmSecs = appendZero(inputSeconds);
   var alarmAmPm = text;
 
-  //  Error Handling for inputs if user type the value of (hours>12,minutes>60 and secconds >60) it shows an  alert box error message
   if (alarmHrs > 12 || alarmMin > 60 || alarmSecs > 60) {
+    //  Error Handling for inputs if user type the value of (hours>12,minutes>60 and secconds >60) it shows an  alert box error message
     alert("plzz Enter Valid Time Format");
     return;
   }
@@ -112,6 +136,7 @@ function showAlarm() {
   for (let alarm of alarmArray) {
     let div = document.createElement("div");
     div.setAttribute("id", `alarm${alarmcount}`);
+    // div.style.background = ` ${colors[Math.floor(Math.random() * 15)]}   `;
     div.innerHTML = `<span><img src="./Assets/icons8-alarmclock-16.png" height="20" width="20"></span><span>${alarm}</span>
      <button  class="btn btn-outline-danger delete-btn" type="button" id="${alarmcount}"
       onclick="removeAlarm(this.id)">Delete </button>`;
@@ -119,7 +144,6 @@ function showAlarm() {
     document.getElementById("alarm-list-container").appendChild(div);
 
     console.log(alarmArray.length);
-    // return;
   }
 }
 
@@ -137,10 +161,11 @@ function removeAlarm(alarmId) {
 }
 
 let audio = new Audio("./audio/alarm.mp3");
-// let alert = setInterval(function () {
-//   for (let i = 0; i < alarmArray.length; i++) {
-//     if (alarmArray[i] == timeDisplay.innerText) {
-//       alert("hey its time now");
-//     }
-//   }
-// }, 500);
+function ringAlarm() {
+  audio.load();
+  audio.play();
+}
+
+stopButton.addEventListener("click", function () {
+  audio.pause();
+});
